@@ -1,7 +1,4 @@
-﻿
-#define _CRT_SECURE_NO_WARNINGS
-#include <iostream>
-#include <fstream>
+﻿#include <iostream>
 #include <string>
 using namespace std;
 
@@ -1180,45 +1177,30 @@ void five_card_draw(string str)
 
 
 
-int main(int arg, char *filename[])
+int main()
 {
-    ifstream filet;
-
-    //checking file for reading
-    if (filename[1]) 
-    {
-        filet.open(filename[1]);
-    }
-    if (!filet) cout << "Error: file not found\n";
-    else if (!filet.is_open())  cout << "Error: not open\n";
-    else if (filet.peek() == EOF) cout << "Error: fail empty\n";
-
 
     string str, texas = "texas-holdem", holdem = "omaha-holdem", five = "five-card-draw";
 
-    //read the file line by line
-    //and run the corresponding game
-    while (!filet.eof())
+    // read the input line by line
+    //and start the Corresponding game
+    while (getline(cin, str))
     {
-        getline(filet, str);
 
-        //if (str.size() > 32 && (str.size() - 23) % 5 == 0 && str.find(texas) == 0){
         if (str.size() > 32 && str.find(texas) == 0) {
             texas_holdem(str);
         }
-        //else if (str.size() > 40 && (str.size() - 23) % 9 == 0 && str.find(holdem) == 0){
+
         else if (str.size() > 40 && str.find(holdem) == 0) {
             omaha_holdem(str);
         }
-        //else if (str.size() > 35 && (str.size() - 14) % 11 == 0 && str.find(five) == 0){
+
         else if (str.size() > 35 && str.find(five) == 0) {
             five_card_draw(str);
         }
+
         else cout << "Error: invalid data entry\n";  
     }
-
-    if (filet)
-    filet.close();
 
     return 1;
 }
